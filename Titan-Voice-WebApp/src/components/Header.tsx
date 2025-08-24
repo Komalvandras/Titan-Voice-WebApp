@@ -1,10 +1,10 @@
 import { Component, For } from 'solid-js';
-import { navLinks } from '../data/appData'; // Make sure your navLinks hrefs match section ids
-import titanLogo from '../assets/titan-1.png';
+import { navLinks } from '../data/appData';
+import titanLogo from '../assets/titan-1.png'; // Correctly imports your logo
 
 type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
-  activeSection: string; // The new prop
+  activeSection: string;
 };
 
 const Header: Component<Props> = (props) => {
@@ -21,8 +21,7 @@ const Header: Component<Props> = (props) => {
               <a 
                 href={link.href} 
                 onClick={(e) => props.onNavClick(e, link.href)} 
-                class="transition-colors duration-300"
-                // This applies the highlight style conditionally
+                class="transition-colors duration-300 text-lg" // Added text-lg for consistency
                 classList={{
                   'text-blue-600 font-semibold': props.activeSection === link.href.substring(1),
                   'text-gray-600 hover:text-blue-600': props.activeSection !== link.href.substring(1)
@@ -32,7 +31,15 @@ const Header: Component<Props> = (props) => {
               </a>
             )}
           </For>
-          <a href="#" class="bg-blue-800 text-white font-bold px-6 py-2 rounded-full hover:bg-blue-900">Login</a>
+          {/* --- THIS IS THE UPDATED LOGIN BUTTON --- */}
+          <a 
+            href="https://pbx.titanbusinessvoice.com/portal/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="bg-blue-800 text-white font-bold px-6 py-2 rounded-full text-lg hover:bg-blue-900" // Added text-lg
+          >
+            Login
+          </a>
         </nav>
       </div>
     </header>
