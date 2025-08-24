@@ -27,7 +27,7 @@ export const navLinks: NavLink[] = [
   { name: 'Home', href: '#home' },
   { name: 'Services', href: '#services' },
   { name: 'Features', href: '#features' },
-  { name: 'Why TitanVoice', href: '#why-teklink' },
+  { name: 'Why TitanVoice', href: '#getLinked-CTA' },
   { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];

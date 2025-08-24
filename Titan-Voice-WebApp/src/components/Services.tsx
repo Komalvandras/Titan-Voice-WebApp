@@ -1,6 +1,6 @@
 import { Component, createSignal, For } from 'solid-js';
 import { services } from '../data/appData';
-import { FaSolidChevronLeft, FaSolidChevronRight } from 'solid-icons/fa'
+import { FaSolidChevronLeft, FaSolidChevronRight } from 'solid-icons/fa';
 
 const Services: Component = () => {
   const [activeIndex, setActiveIndex] = createSignal(0);
@@ -8,34 +8,66 @@ const Services: Component = () => {
   const nextService = () => setActiveIndex((prev) => (prev + 1) % services.length);
   const prevService = () => setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
 
-  const currentService = () => services[activeIndex()];
+  // Function to determine the transform style for each card
+  const getTransformStyle = (index: number) => {
+    const offset = index - activeIndex();
+    if (offset === 0) {
+      return 'transform: translateX(0) scale(1); opacity: 1; z-index: 2;';
+    }
+    const sign = Math.sign(offset);
+    const scale = 'scale(0.8)';
+    const rotation = `rotateY(${-sign * 35}deg)`;
+    const translation = `translateX(${sign * 40}%)`;
+    return `transform: ${translation} ${rotation} ${scale}; opacity: 1.5; z-index: 1;`;
+  };
 
   return (
-    <section id="services" class="py-20 bg-gray-100">
+    <section id="services" class="py-24 bg-slate-100 overflow-hidden">
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold text-blue-800 mb-2">POPULAR SERVICES</h2>
-        <p class="max-w-3xl mx-auto mb-12">Want to enrich your telecom experience? Browse our comprehensive suite of affordable communications solutions:</p>
+        <p class="max-w-3xl mx-auto mb-16">
+          Want to enrich your telecom experience? Browse our comprehensive suite of affordable communications solutions:
+        </p>
 
-        <div class="relative max-w-5xl mx-auto">
-          <div class="bg-white shadow-2xl rounded-lg overflow-hidden flex flex-col md:flex-row">
-            <img src={currentService().img} alt={currentService().title} class="w-full md:w-1/3 object-cover h-64 md:h-auto" />
-            <div class="p-8 flex-1 flex flex-col md:flex-row items-start text-left gap-8">
-                <img src={currentService().icon} class="w-24 h-24" />
-                <div>
-                    <h3 class="text-2xl font-bold mb-4">{currentService().title}</h3>
-                    <p class="mb-6">{currentService().description}</p>
-                    <ul class="space-y-2 list-disc list-inside text-gray-600">
-                        <For each={currentService().features}>{(feature) => <li>{feature}</li>}</For>
-                    </ul>
+        <div class="relative h-[550px]" style="perspective: 1200px;">
+          {/* Slides Container */}
+          <div
+            class="relative w-full h-full"
+            style="transform-style: preserve-3d;"
+          >
+            <For each={services}>
+              {(service, index) => (
+                <div
+                  class="absolute top-0 left-0 w-full h-full transition-transform duration-500 ease-in-out"
+                  style={getTransformStyle(index())}
+                  onClick={() => setActiveIndex(index())}
+                >
+                  <div class="w-4/5 md:w-3/5 h-full mx-auto cursor-pointer transition-transform duration-300 hover:scale-[1.03]">
+                    <div class="bg-white h-full shadow-2xl rounded-lg overflow-hidden flex flex-col md:flex-row">
+                      <img src={service.img} alt={service.title} class="w-full md:w-1/3 object-cover" />
+                      <div class="p-8 flex items-start text-left gap-6">
+                        <img src={service.icon} class="w-20 h-20" />
+                        <div>
+                          <h3 class="text-2xl font-bold mb-4">{service.title}</h3>
+                          <p class="mb-6 text-gray-600">{service.description}</p>
+                          <ul class="space-y-2 list-disc list-inside text-gray-600">
+                            <For each={service.features}>{(feature) => <li>{feature}</li>}</For>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              )}
+            </For>
           </div>
 
-          <button onClick={prevService} class="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-200">
-            <FaSolidChevronLeft class="h-6 w-6 text-blue-700"/>
+          {/* Navigation Arrows */}
+          <button onClick={prevService} class="absolute top-1/2 -translate-y-1/2 left-0 md:-left-8 text-black z-20">
+            <FaSolidChevronLeft size={48} class="opacity-50 hover:opacity-100 transition-opacity" />
           </button>
-          <button onClick={nextService} class="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-200">
-            <FaSolidChevronRight class="h-6 w-6 text-blue-700"/>
+          <button onClick={nextService} class="absolute top-1/2 -translate-y-1/2 right-0 md:-right-8 text-black z-20">
+            <FaSolidChevronRight size={48} class="opacity-50 hover:opacity-100 transition-opacity" />
           </button>
         </div>
       </div>

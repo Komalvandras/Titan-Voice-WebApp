@@ -40,7 +40,7 @@ const MissionCard: Component<{ mission: MissionType; onNavClick: Props['onNavCli
 
 const Mission: Component<Props> = (props) => {
   return (
-    <section id="about" class="py-20 bg-gray-50">
+    <section id="about" class="py-20 bg-blue-100">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-blue-800">OUR MISSION</h2>
