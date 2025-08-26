@@ -5,7 +5,6 @@ type Props = {
 };
 
 const GetLinkedCTA: Component<Props> = (props) => {
-  // A dark blue world map background. Replace with your specific image URL if you have one.
   const backgroundImageUrl = "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (

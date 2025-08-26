@@ -11,14 +11,15 @@ const ChainCTA: Component<Props> = (props) => {
   const targetHref = "#contact";
 
   return (
-    <section 
-      class="py-24 text-white bg-cover bg-center bg-fixed " 
+    <section
+      id='chain-CTA'
+      class="relative py-24 text-white bg-cover bg-center" 
       style={{ "background-image": `url(${backgroundImageUrl})` }}
     > 
 
       {/* Dark overlay for text readability */}
-        
-<div class="absolute  bg-black/40"></div>
+      <div class="absolute inset-0 bg-black/40"></div> 
+
       
       <div class="relative z-10 container mx-auto px-4 text-center">
         <h3 class="text-4xl font-bold mb-6" innerHTML={title}></h3>
