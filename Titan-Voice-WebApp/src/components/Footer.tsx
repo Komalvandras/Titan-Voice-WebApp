@@ -23,7 +23,7 @@ const Footer: Component<Props> = (props) => {
               </a>
             )}
           </For>
-          <a href="https://portal.theteklink.com/" target="_blank" class="hover:text-white transition-colors duration-300">Login</a>
+          <a href="https://pbx.titanbusinessvoice.com/portal/" target="_blank" class="hover:text-white transition-colors duration-300">Login</a>
         </nav>
         <div class="text-sm text-gray-500">
           <a
