@@ -1,8 +1,7 @@
-import { Component, createSignal, Show } from 'solid-js';
-import { A } from '@solidjs/router';
-import titanLogo from '../assets/titan-1.png';
+import {createSignal, Show } from 'solid-js';
+import Logo from '../assets/logo.png';
 
-const PromoPage: Component = () => {
+const PromoPage = () => {
   // State for all form fields
   const [firstName, setFirstName] = createSignal('');
   const [lastName, setLastName] = createSignal('');
@@ -70,7 +69,7 @@ const PromoPage: Component = () => {
       <div class="w-full max-w-4xl bg-white p-6 sm:p-10 rounded-xl shadow-2xl">
         <div class="flex justify-center mb-8">
           
-          <img src="/logo.png" alt="TitanVoice Logo" class="w-48 sm:w-64"/>          
+          <img src={Logo.src} alt="TitanVoice Logo" class="w-48 sm:w-64"/>          
 
         </div>
         
@@ -138,9 +137,9 @@ const PromoPage: Component = () => {
         </form>
       </div>
       <div class="mt-8">
-        <A href="/" class="text-blue-600 hover:underline">
+        <a href="/" class="text-blue-600 hover:underline">
           &larr; Back to Landing Page
-        </A>
+        </a>
       </div>
     </div>
   );

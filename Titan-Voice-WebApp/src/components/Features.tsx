@@ -1,8 +1,8 @@
 // src/components/Features.tsx
 
-import { Component } from 'solid-js';
 
-const Features: Component = () => {
+
+const Features = () => {
   const featuresList = [
     "Easy <strong>call transfer</strong> allows you to direct active calls from the office to your cell",
     "Procure, manage and route as many <strong>DID numbers</strong> as necessary",

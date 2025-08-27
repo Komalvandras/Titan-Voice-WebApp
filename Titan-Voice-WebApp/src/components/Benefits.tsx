@@ -1,9 +1,9 @@
 // src/components/Benefits.tsx
 
-import { Component, For } from 'solid-js';
+import { For } from 'solid-js';
 import { benefits } from '../data/appData';
 
-const Benefits: Component = () => {
+const Benefits = () => {
   return (
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4">

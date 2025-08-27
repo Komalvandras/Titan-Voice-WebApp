@@ -1,13 +1,13 @@
 // src/components/Mission.tsx
 
-import { Component, For } from 'solid-js';
-import { missions, Mission as MissionType } from '../data/appData';
+import {For } from 'solid-js';
+import { missions} from '../data/appData';
 
 type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
 };
 
-const MissionCard: Component<{ mission: MissionType; onNavClick: Props['onNavClick'] }> = (props) => {
+const MissionCard = (props:any) => {
   return (
     <div class={`flex flex-col md:flex-row items-center gap-12 py-10 ${props.mission.imageFirst ? '' : 'md:flex-row-reverse'}`}>
       {/* Image Column */}
@@ -38,7 +38,7 @@ const MissionCard: Component<{ mission: MissionType; onNavClick: Props['onNavCli
 };
 
 
-const Mission: Component<Props> = (props) => {
+const Mission  = (props:any) => {
   return (
     <section id="about" class="py-20 bg-blue-100">
       <div class="container mx-auto px-4">

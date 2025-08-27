@@ -1,7 +1,7 @@
-import { Component, createSignal, Show, For } from 'solid-js';
-import { A } from '@solidjs/router';
+import { createSignal, Show, For } from 'solid-js';
 
-const SupportPage: Component = () => {
+
+const SupportPage = () => {
   // State for all form fields, organized by section
   const [formState, setFormState] = createSignal({
     name: '',
@@ -359,9 +359,9 @@ const SupportPage: Component = () => {
             </form>
           </div>
           <div class="mt-8 text-center">
-            <A href="/" class="text-blue-600 hover:underline">
+            <a href="/" class="text-blue-600 hover:underline">
               &larr; Back to Landing Page
-            </A>
+            </a>
           </div>
         </div>
       </section>

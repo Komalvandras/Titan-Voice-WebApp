@@ -1,8 +1,8 @@
-import { Component, createSignal, Show } from 'solid-js';
+import {  createSignal, Show } from 'solid-js';
 // Corrected the import path for the icons
 import { FaSolidPhone, FaSolidMarker, FaSolidGlobe } from 'solid-icons/fa';
 
-const Contact: Component = () => {
+const Contact = () => {
   // State signals remain the same
   const [firstName, setFirstName] = createSignal('');
   const [lastName, setLastName] = createSignal('');

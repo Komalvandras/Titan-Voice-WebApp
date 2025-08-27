@@ -1,8 +1,8 @@
-import { Component, createSignal, For } from 'solid-js';
-import { services } from '../data/appData';
+import {  createSignal, For } from 'solid-js';
+import {services } from '../data/appData';
 import { FaSolidChevronLeft, FaSolidChevronRight } from 'solid-icons/fa';
 
-const Services: Component = () => {
+const Services = () => {
   const [activeIndex, setActiveIndex] = createSignal(0);
 
   const nextService = () => setActiveIndex((prev) => (prev + 1) % services.length);

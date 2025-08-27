@@ -1,10 +1,10 @@
-import { Component } from 'solid-js';
+
 
 type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
 };
 
-const ChainCTA: Component<Props> = (props) => {
+const ChainCTA = (props:any) => {
   const backgroundImageUrl = "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
   const title = "Your Chain Is As Strong As Your <strong>Strongest Link</strong>";
   const buttonText = "TEAM UP TODAY";

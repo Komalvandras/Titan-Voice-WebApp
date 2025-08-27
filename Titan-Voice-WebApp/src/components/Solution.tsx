@@ -1,6 +1,6 @@
-import { Component } from 'solid-js';
 
-const Solution: Component = () => {
+
+const Solution = () => {
   return (
     <section class="py-24 bg-white overflow-hidden"> {/* Added overflow-hidden to contain elements */}
       <div class="container mx-auto px-4">

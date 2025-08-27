@@ -1,7 +1,7 @@
-import { Component, For } from 'solid-js';
+import { For } from 'solid-js';
 import { stats } from '../data/appData';
 
-const Stats: Component = () => {
+const Stats = () => {
   return (
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">

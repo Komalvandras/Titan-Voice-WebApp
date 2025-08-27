@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+
 import backgroundImage from '../assets/titan-1.png';
 import QuoteForm from './QuoteForm';
 
@@ -6,11 +6,11 @@ type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
 };
 
-const IntroSection: Component<Props> = (props) => {
+const IntroSection = (props:any) => {
    return (
     <section id="home" class="relative min-h-[700px] lg:h-screen text-white flex items-center py-20">
       
-      <div class="absolute inset-0 bg-cover bg-center" style={{ "background-image": `url(${backgroundImage})` }}></div>
+      <div class="absolute inset-0 bg-cover bg-center" style={{ "background-image": `url(${backgroundImage.src}.)` }}></div>
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="relative z-10 container mx-auto px-4 w-full">
         {/* Main Flex Container for the two columns */}

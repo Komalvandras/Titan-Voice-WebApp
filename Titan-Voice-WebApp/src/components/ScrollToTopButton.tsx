@@ -1,9 +1,9 @@
 // src/components/ScrollToTopButton.tsx
 
-import { Component, createSignal, onMount, Show } from 'solid-js';
+import { createSignal, onMount, Show } from 'solid-js';
 import { FaSolidAngleUp } from 'solid-icons/fa';
 
-const ScrollToTopButton: Component = () => {
+const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = createSignal(false);
 
   const handleScroll = () => {

@@ -1,6 +1,6 @@
-import { Component, createSignal, Show } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 
-const QuoteForm: Component = () => {
+const QuoteForm = () => {
   // State for form fields
   const [firstName, setFirstName] = createSignal('');
   const [lastName, setLastName] = createSignal('');

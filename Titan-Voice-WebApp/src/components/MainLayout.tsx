@@ -1,4 +1,4 @@
-import { Component, createSignal, onMount, onCleanup } from 'solid-js';
+import {  createSignal, onMount, onCleanup } from 'solid-js';
 import Header from './Header';
 import IntroSection from './IntroSection';
 import Stats from './Stats';
@@ -16,13 +16,14 @@ import Contact from './Contact';
 // An array of the section IDs that correspond to your navigation links
 const sectionIds = ['home', 'why-teklink', 'services', 'features', 'about', 'contact'];
 
-const MainLayout: Component = () => {
+const MainLayout = () => {
   // State to hold the ID of the currently active section
   const [activeSection, setActiveSection] = createSignal('home');
 
   // Function to check which section is in view
   const handleScroll = () => {
-    const scrollPosition = window.scrollY + 150; // Offset to highlight a bit earlier
+    // Offset to highlight the nav link a bit before the section top hits the very top of the viewport
+    const scrollPosition = window.scrollY + 150; 
 
     for (const id of sectionIds) {
       const element = document.getElementById(id);
@@ -35,12 +36,17 @@ const MainLayout: Component = () => {
     }
   };
 
-  // Add and remove the scroll event listener
+  // Add and remove the scroll event listener.
+  // This onMount hook ensures that the code inside it only runs on the client (in the browser),
+  // preventing the "window is not defined" error during server-side rendering.
   onMount(() => {
     window.addEventListener('scroll', handleScroll);
-  });
-  onCleanup(() => {
-    window.removeEventListener('scroll', handleScroll);
+
+    // The onCleanup function is nested here to ensure the event listener is removed
+    // only when the component is unmounted from the client.
+    onCleanup(() => {
+      window.removeEventListener('scroll', handleScroll);
+    });
   });
 
   // Helper function for smooth scrolling navigation
@@ -48,7 +54,7 @@ const MainLayout: Component = () => {
     e.preventDefault();
     const element = document.querySelector(selector);
     if (element) {
-      const headerOffset = 96; // Height of the sticky header
+      const headerOffset = 96; // Height of your sticky header
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -61,10 +67,10 @@ const MainLayout: Component = () => {
 
   return (
     <div class="bg-white font-sans text-gray-700">
-      {/* Pass the activeSection state to the Header */}
+      {/* Pass the activeSection state and nav handler to the Header */}
       <Header onNavClick={handleNavClick} activeSection={activeSection()} />
       <main>
-        {/* Add 'id' attributes to your main sections */}
+        {/* Add 'id' attributes to your main sections for scroll spying */}
         <div id="home"><IntroSection onNavClick={handleNavClick} /></div>
         <Stats />
         <div id="why-teklink"><Solution /></div>

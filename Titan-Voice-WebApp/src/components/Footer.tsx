@@ -1,13 +1,13 @@
 // src/components/Footer.tsx
 
-import { Component, For } from 'solid-js';
+import {  For } from 'solid-js';
 import { navLinks } from '../data/appData';
 
 type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
 };
 
-const Footer: Component<Props> = (props) => {
+const Footer = (props:any) => {
   return (
     <footer class="bg-gray-800 text-gray-300 py-10">
       <div class="container mx-auto px-4 text-center">
