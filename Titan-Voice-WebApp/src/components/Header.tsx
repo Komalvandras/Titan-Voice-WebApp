@@ -27,7 +27,7 @@ const Header = (props: Props) => {
         <a href="#home" onClick={(e) => props.onNavClick(e, '#home')} class="flex items-center gap-3">
           {/* Corrected to use the imported logo */}
           <img src={Logo.src} alt="TitanVoice Logo" class="h-24 w-auto"/>
-          <span class="text-2xl font-bold text-slate-700">Titan Voice</span>
+          <span class="text-2xl font-bold text-slate-700">TitanVoice</span>
         </a>
 
         {/* --- Desktop Navigation --- */}
