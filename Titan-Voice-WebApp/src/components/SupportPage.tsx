@@ -1,8 +1,9 @@
+// src/components/SupportPage.tsx
+
 import { createSignal, Show, For } from 'solid-js';
 
-
 const SupportPage = () => {
-  // State for all form fields, organized by section
+  // State for all form fields, matching the original component
   const [formState, setFormState] = createSignal({
     name: '',
     company: '',
@@ -10,15 +11,19 @@ const SupportPage = () => {
     contactNumber: '',
     mainBusinessNumber: '',
     serviceCategory: '',
-    // Phone Service State
     phoneServiceIssue: '',
     urgency: '',
     newPhoneServiceItems: '',
-    // FAX Service State
+    streetNumber: '',
+    streetName: '',
+    address2: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    isp: '',
     faxNumber: '',
     faxIssueType: '',
     specificFaxIssue: '',
-    // Training State
     trainingTypes: {
       'Phone Training': false,
       'FAX Training': false,
@@ -26,30 +31,20 @@ const SupportPage = () => {
       'Computer Software Training': false,
       'Other': false,
     },
-    // Porting State
     numbersToPort: '',
     authPerson: '',
     authTitle: '',
     billingNumber: '',
     accountNumber: '',
-    partialPort: 'Yes',
     signerName: '',
     agreeToTerms: false,
-    // General State
     description: '',
   });
-
-  // State for validation errors
-  const [errors, setErrors] = createSignal({
-    name: '', company: '', email: '', contactNumber: '', serviceCategory: '',
-    phoneServiceIssue: '', urgency: '', faxNumber: '', faxIssueType: '', specificFaxIssue: '',
-    numbersToPort: '', authPerson: '', authTitle: '', accountNumber: '', signerName: '', agreeToTerms: '', streetName: '', city: '', state: '', zipCode: '', isp: '', 
-    newPhoneServiceItems: '', streetNumber: ''
-  });
+  
+  const [formStatus, setFormStatus] = createSignal<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const validate = () => {
-    // This function would contain comprehensive validation for all fields.
-    // For brevity, a simplified check is shown.
+    // This is a simplified validation. A real app would have more robust checks.
     if (!formState().name || !formState().company || !formState().email || !formState().contactNumber || !formState().serviceCategory) {
       alert('Please fill out all required fields.');
       return false;
@@ -57,11 +52,26 @@ const SupportPage = () => {
     return true;
   };
 
-  const handleSubmit = (e: Event) => {
+  const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    if (validate()) {
-      console.log('Support Request Submitted:', formState());
-      alert('Thank you, your support ticket has been submitted!');
+    if (!validate()) {
+      return;
+    }
+    setFormStatus('submitting');
+    try {
+      const response = await fetch('/api/send-support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState()),
+      });
+      if (response.ok) {
+        setFormStatus('success');
+      } else {
+        throw new Error('Failed to send support ticket');
+      }
+    } catch (error) {
+      console.error('Submission Error:', error);
+      setFormStatus('error');
     }
   };
 
@@ -80,7 +90,6 @@ const SupportPage = () => {
 
   return (
     <div class="min-h-screen w-full bg-white">
-      {/* Hero Banner Section */}
       <section class="relative py-20 bg-cover bg-center text-white" style={{ "background-image": "url('https://santorinisolutions.com/wp-content/uploads/2020/01/vdhgv54ndnj21.png')" }}>
         <div class="absolute inset-0 bg-black/50"></div>
         <div class="relative container mx-auto px-4 text-center">
@@ -88,155 +97,134 @@ const SupportPage = () => {
         </div>
       </section>
 
-      {/* Form Section */}
       <section class="py-16">
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto bg-gray-50 p-6 sm:p-10 rounded-xl shadow-xl">
-            <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center">
-              Please fill out the ticket request fully, including selection from each dropdown.
-            </h3>
-            
-            <form onSubmit={handleSubmit} class="space-y-6">
-              {/* --- Base Information Fields --- */}
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Your Name*</label>
-                  <input name="name" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Company Name*</label>
-                  <input name="company" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Your Business Email*</label>
-                  <input name="email" type="email" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Your Contact Number*</label>
-                  <input name="contactNumber" type="tel" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                </div>
-                                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Main Business Number (Leave Blank if New Customer)*</label>
-                  <input name="businessNumber" type="tel" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                </div>
-              </div>
-              
-              {/* --- Service Category Dropdown --- */}
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Please Select Service Category*</label>
-                <select name="serviceCategory" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
-                  <option value="">—</option>
-                  <option value="Phone Service">Phone Service</option>
-                  <option value="FAX Service">FAX Service</option>
-                  <option value="Networking/VPN">Networking/VPN</option>
-                  <option value="Computer/Server">Computer/Server</option>
-                  <option value="Product Training">Product Training</option>
-                  <option value="Porting Management">Porting Management</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              {/* --- CONDITIONAL FIELDS CONTAINER --- */}
-              <div class="p-4 bg-gray-100 rounded-md space-y-4">
-                
-                {/* 1. Phone Service */}
-                <Show when={formState().serviceCategory === 'Phone Service'}>
-                  <div class="space-y-4">
-                    <label class="block text-sm font-medium text-gray-700">Choose From Following*</label>
-                    <select name="phoneServiceIssue" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
+            <Show when={formStatus() === 'success'} fallback={
+              <>
+                <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center">
+                  Please fill out the ticket request fully, including selection from each dropdown.
+                </h3>
+                <form onSubmit={handleSubmit} class="space-y-6">
+                  {/* --- Base Information Fields --- */}
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Your Name*</label>
+                      <input name="name" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Company Name*</label>
+                      <input name="company" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Your Business Email*</label>
+                      <input name="email" type="email" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Your Contact Number*</label>
+                      <input name="contactNumber" type="tel" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                    </div>
+                     <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Main Business Number (Leave Blank if New Customer)</label>
+                      <input name="mainBusinessNumber" type="tel" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                    </div>
+                  </div>
+                  
+                  {/* --- Service Category Dropdown --- */}
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Please Select Service Category*</label>
+                    <select name="serviceCategory" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
                       <option value="">—</option>
-                      <option value="New Phone Service">New Phone Service</option>
-                      <option value="Add/Modify Features on Current Phone Service">Add/Modify Features</option>
-                      <option value="Having Trouble on Current Phone Service">Having Trouble With Current Phone Service</option>
-                      <option value="Move Phone from one address to another">Move Phone One Address To Another</option>
-                      <option value="Upload Custom Voicemail Greeting">Upload Custom Voicemail Greeting</option>
-                      <option value="Upload Custom On Hold Music">Upload Custom On Hold Music</option>
+                      <option value="Phone Service">Phone Service</option>
+                      <option value="FAX Service">FAX Service</option>
+                      <option value="Product Training">Product Training</option>
+                      <option value="Porting Management">Porting Management</option>
                       <option value="Other">Other</option>
                     </select>
-                    {/* --- NESTED "NEW PHONE SERVICE" SECTION --- */}
-                    <Show when={formState().phoneServiceIssue === 'New Phone Service'}>
-                      <div class="pl-4 border-l-4 border-gray-300 space-y-4 pt-4">
-                        <div>
-                          <label class="block text-sm font-medium text-gray-700 mb-1">Select All that Apply*</label>
-                          <select name="newPhoneServiceItems" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
-                            <option value="">—</option>
-                            <option value="New Customer Location">New Customer Location</option>
-                            <option value="Current Customer Adding New Location">Current Customer Adding New Location</option>
-                            <option value="Current Customer Adding New Phone Number">Current Customer Adding New Phone Number</option>
-                            <option value="I will be Porting an Existing Number">I will be Porting an Existing Number</option>
-                            <option value="Other">Other</option>
-                          </select>
-                          <Show when={errors().newPhoneServiceItems}><p class="text-red-500 text-sm mt-1">{errors().newPhoneServiceItems}</p></Show>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <input name="streetNumber" type="text" placeholder="Street Number (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                            <Show when={errors().streetNumber}><p class="text-red-500 text-sm mt-1">{errors().streetNumber}</p></Show>
-                          </div>
-                          <div>
-                            <input name="streetName" type="text" placeholder="Street Name (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                            <Show when={errors().streetName}><p class="text-red-500 text-sm mt-1">{errors().streetName}</p></Show>
-                          </div>
-                        </div>
-                        
-                        <input name="address2" type="text" placeholder="Address 2" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                  </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                           <div>
-                            <input name="city" type="text" placeholder="City (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                            
-                            <Show when={errors().city}><p class="text-red-500 text-sm mt-1">{errors().city}</p></Show>
-                           </div>
-                           <div>
-                            <input name="state" type="text" placeholder="State (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                            <Show when={errors().state}><p class="text-red-500 text-sm mt-1">{errors().state}</p></Show>
-                           </div>
-                           <div>
-                            <input name="zipCode" type="text" placeholder="Zip Code (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
-                             <Show when={errors().zipCode}><p class="text-red-500 text-sm mt-1">{errors().zipCode}</p></Show>
-                           </div>
-                        </div>
-
-                        <div>
-                          <label class="block text-sm font-medium text-gray-700 mb-1">My Current Internet Service Provider</label>
-                          <select name="isp" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
-                            <option value="">—</option>
-                            <option value="AT&T DSLU">AT&T DSLU/U-Verse(Speed: Between 10Mbps - 100Mbps)</option>
-                            <option value="AT&T Fiber">AT&T Fiber (Speed: Between 300Mbps - 1000Mbps)</option>
-                            <option value="Frontier Fiber">Frontier Fiber</option>
-                            <option value="Spectrum Business">Spectrum Business (Speed: 200Mbps - 600Mbps)</option>
-                            <option value="Spectrum Dedicated Fiber">Spectrum Dedicated Fiber</option>
-                            <option value="SparkLight Internet">SparkLight Internet</option>
-                            <option value="Other">Other</option>                    
-                            <option value="Don't Know">Don't Know</option>
-                          </select>
-                        </div>
-                      </div>
-                    </Show> 
-                   
-
-                    <Show when={formState().phoneServiceIssue === 'Having Trouble on Current Phone Service'}>
-                      <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Select the Urgency of the request*</label>
-                        <select name="urgency" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
+                  {/* --- CONDITIONAL FIELDS CONTAINER --- */}
+                  <div class="p-4 bg-gray-100 rounded-md space-y-4">
+                    <Show when={formState().serviceCategory === 'Phone Service'}>
+                      <div class="space-y-4">
+                        <label class="block text-sm font-medium text-gray-700">Choose From Following*</label>
+                        <select name="phoneServiceIssue" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
                           <option value="">—</option>
-                          <option value="Emergency">Emergency/Affecting Everyone</option>
-                          <option value="High">Functionality stopped working for all devices</option>
-                          <option value="Medium">Functionality stopped working for 1 device</option>
-                          <option value="One Piece">One Piece of Hardware Stopped Working</option>
-                          <option value="Low">Minor/Please Schedule</option>
+                          <option value="New Phone Service">New Phone Service</option>
+                          <option value="Add/Modify Features on Current Phone Service">Add/Modify Features</option>
+                          <option value="Having Trouble on Current Phone Service">Having Trouble With Current Phone Service</option>
+                          <option value="Move Phone from one address to another">Move Phone One Address To Another</option>
+                          <option value="Upload Custom Voicemail Greeting">Upload Custom Voicemail Greeting</option>
+                          <option value="Upload Custom On Hold Music">Upload Custom On Hold Music</option>
                           <option value="Other">Other</option>
                         </select>
+                        <Show when={formState().phoneServiceIssue === 'New Phone Service'}>
+                          <div class="pl-4 border-l-4 border-gray-300 space-y-4 pt-4">
+                            <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Select All that Apply*</label>
+                              <select name="newPhoneServiceItems" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
+                                <option value="">—</option>
+                                <option value="New Customer Location">New Customer Location</option>
+                                <option value="Current Customer Adding New Location">Current Customer Adding New Location</option>
+                                <option value="Current Customer Adding New Phone Number">Current Customer Adding New Phone Number</option>
+                                <option value="I will be Porting an Existing Number">I will be Porting an Existing Number</option>
+                                <option value="Other">Other</option>
+                              </select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div>
+                                <input name="streetNumber" type="text" placeholder="Street Number (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                              </div>
+                              <div>
+                                <input name="streetName" type="text" placeholder="Street Name (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                              </div>
+                            </div>
+                            <input name="address2" type="text" placeholder="Address 2" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                              <div>
+                                <input name="city" type="text" placeholder="City (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                              </div>
+                              <div>
+                                <input name="state" type="text" placeholder="State (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                              </div>
+                              <div>
+                                <input name="zipCode" type="text" placeholder="Zip Code (Required)" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                              </div>
+                            </div>
+                            <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">My Current Internet Service Provider</label>
+                              <select name="isp" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
+                                <option value="">—</option>
+                                <option value="AT&T DSLU">AT&T DSLU/U-Verse(Speed: Between 10Mbps - 100Mbps)</option>
+                                <option value="AT&T Fiber">AT&T Fiber (Speed: Between 300Mbps - 1000Mbps)</option>
+                                <option value="Frontier Fiber">Frontier Fiber</option>
+                                <option value="Spectrum Business">Spectrum Business (Speed: 200Mbps - 600Mbps)</option>
+                                <option value="Spectrum Dedicated Fiber">Spectrum Dedicated Fiber</option>
+                                <option value="SparkLight Internet">SparkLight Internet</option>
+                                <option value="Other">Other</option>
+                                <option value="Don't Know">Don't Know</option>
+                              </select>
+                            </div>
+                          </div>
+                        </Show>
+                        <Show when={formState().phoneServiceIssue === 'Having Trouble on Current Phone Service'}>
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Select the Urgency of the request*</label>
+                            <select name="urgency" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300">
+                              <option value="">—</option>
+                              <option value="Emergency">Emergency/Affecting Everyone</option>
+                              <option value="High">Functionality stopped working for all devices</option>
+                              <option value="Medium">Functionality stopped working for 1 device</option>
+                              <option value="One Piece">One Piece of Hardware Stopped Working</option>
+                              <option value="Low">Minor/Please Schedule</option>
+                              <option value="Other">Other</option>
+                            </select>
+                          </div>
+                        </Show>
                       </div>
                     </Show>
-                    
-                  </div>
-                </Show>
-
-                {/* 2. FAX Service */}
-                <Show when={formState().serviceCategory === 'FAX Service'}>
-                   <div class="space-y-4">
+                    <Show when={formState().serviceCategory === 'FAX Service'}>
+                      <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Fax Number Affected*</label>
                             <input name="faxNumber" type="tel" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
@@ -261,27 +249,23 @@ const SupportPage = () => {
                                 </select>
                             </div>
                         </Show>
-                   </div>
-                </Show>
-
-                {/* 3. Product Training */}
-                <Show when={formState().serviceCategory === 'Product Training'}>
-                    <label class="block text-sm font-medium text-gray-700">Specify all types of training you require:</label>
-                    <div class="space-y-2 mt-2">
+                      </div>
+                    </Show>
+                    <Show when={formState().serviceCategory === 'Product Training'}>
+                      <label class="block text-sm font-medium text-gray-700">Specify all types of training you require:</label>
+                      <div class="space-y-2 mt-2">
                         <For each={Object.keys(formState().trainingTypes)}>
-                            {key => (
-                                <div class="flex items-center">
-                                    <input type="checkbox" name={key} id={key} onChange={handleCheckbox} class="h-4 w-4 rounded border-gray-300" />
-                                    <label for={key} class="ml-3 block text-sm text-gray-900">{key}</label>
-                                </div>
-                            )}
+                          {key => (
+                            <div class="flex items-center">
+                              <input type="checkbox" name={key} id={key} onChange={handleCheckbox} class="h-4 w-4 rounded border-gray-300" />
+                              <label for={key} class="ml-3 block text-sm text-gray-900">{key}</label>
+                            </div>
+                          )}
                         </For>
-                    </div>
-                </Show>
-
-                {/* 4. Porting Management */}
-                <Show when={formState().serviceCategory === 'Porting Management'}>
-                    <div class="space-y-4">
+                      </div>
+                    </Show>
+                    <Show when={formState().serviceCategory === 'Porting Management'}>
+                      <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Street Number*</label>
                             <input name="streetNumber" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
@@ -292,7 +276,7 @@ const SupportPage = () => {
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                            <input name="Address" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                            <input name="address2" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">City*</label>
@@ -306,7 +290,6 @@ const SupportPage = () => {
                             <label class="block text-sm font-medium text-gray-700 mb-1">Zip Code*</label>
                             <input name="zipCode" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
                         </div>
-                        
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">List all Telephone Numbers to be Ported*</label>
                             <input name="numbersToPort" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
@@ -317,17 +300,15 @@ const SupportPage = () => {
                         </div>
                         <p class="text-sm text-gray-600">Please provide the full name of the person who is authorized on your account with your current carrier to request changes. If this name does not match what your carrier has on file, they may reject the port.</p>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Authorizing Tittle*</label>
-                            <input name="authorizingTitle" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Authorizing Title*</label>
+                            <input name="authTitle" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Billing Number*</label>
                             <input name="billingNumber" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
                         </div>
                         <p class="text-sm text-gray-600">Which number on your account is considered the Billing Number or BTN. If unsure, leave it blank. Each carrier is different and some carriers do not store a BTN and will ignore whatever you define here. BTN number can’t be a Toll Free number.</p>
-
-
-                         <div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Authorized Signer's Name*</label>
                             <input name="signerName" type="text" onInput={handleInput} class="w-full px-4 py-3 rounded-md border border-gray-300" />
                         </div>
@@ -336,31 +317,40 @@ const SupportPage = () => {
                             <label for="agreeToTerms" class="text-xs text-gray-600">By checking this box, I assert that I am authorized to make the port out request for the listed phone number(s).</label>
                         </div>
                         <p class="text-sm text-gray-600">Please Attach Most Recent Bill!</p>
+                      </div>
+                    </Show>
+                  </div>
 
-                    </div>
+                  {/* --- General Fields --- */}
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Please Describe any Specific Information</label>
+                    <textarea name="description" onInput={handleInput} rows="5" class="w-full px-4 py-3 rounded-md border border-gray-300" />
+                  </div>
+                   <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Attach a File (Valid types: pdf, jpeg, jpg, png, mp3)</label>
+                      <input type="file" name="file" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                  </div>
+
+                  <div class="pt-4">
+                    <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 text-lg" disabled={formStatus() === 'submitting'}>
+                      {formStatus() === 'submitting' ? 'Sending...' : 'Send'}
+                    </button>
+                  </div>
+                </form>
+                <Show when={formStatus() === 'error'}>
+                  <p class="text-red-500 text-center mt-4">Oops! Something went wrong. Please try again.</p>
                 </Show>
+              </>
+            }>
+              <div class="text-center p-8 bg-green-50 rounded-lg">
+                <h3 class="text-2xl font-bold text-green-800">Ticket Submitted!</h3>
+                <p class="text-green-700 mt-2">Thank you for your request. Our support team will be in touch shortly.</p>
               </div>
-
-              {/* --- General Fields --- */}
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Please Describe any Specific Information</label>
-                <textarea name="description" onInput={handleInput} rows="5" class="w-full px-4 py-3 rounded-md border border-gray-300" />
-              </div>
-              <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Attach a File (Valid types: pdf, jpeg, jpg, png, mp3)</label>
-                  <input type="file" name="file" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-              </div>
-
-              <div class="pt-4">
-                <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 text-lg">
-                  Send
-                </button>
-              </div>
-            </form>
+            </Show>
           </div>
           <div class="mt-8 text-center">
             <a href="/" class="text-blue-600 hover:underline">
-              &larr; Back to Landing Page
+              &larr; Back to Main Site
             </a>
           </div>
         </div>

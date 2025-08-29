@@ -1,9 +1,7 @@
-import {  createSignal, Show } from 'solid-js';
-// Corrected the import path for the icons
+import { createSignal, Show } from 'solid-js';
 import { FaSolidPhone, FaSolidMarker, FaSolidGlobe } from 'solid-icons/fa';
 
 const Contact = () => {
-  // State signals remain the same
   const [firstName, setFirstName] = createSignal('');
   const [lastName, setLastName] = createSignal('');
   const [email, setEmail] = createSignal('');
@@ -14,8 +12,8 @@ const Contact = () => {
   const [errors, setErrors] = createSignal({
     firstName: '', lastName: '', email: '', phone: '', subject: '', message: '',
   });
+  const [formStatus, setFormStatus] = createSignal<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
-  // --- 1. Updated Validation Logic ---
   const validate = () => {
     const newErrors = { firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' };
     let isValid = true;
@@ -39,7 +37,6 @@ const Contact = () => {
       newErrors.phone = 'Phone number is required.';
       isValid = false;
     }
-    // Validation for 'Subject' is removed as requested.
     if (!message().trim()) {
       newErrors.message = 'Message is required.';
       isValid = false;
@@ -49,10 +46,36 @@ const Contact = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: Event) => {
+  const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    if (validate()) {
-      alert('Thank you for your message!');
+    if (!validate()) {
+      return;
+    }
+
+    setFormStatus('submitting');
+    const formData = {
+      from_name: `${firstName()} ${lastName()}`,
+      email: email(),
+      phone: phone(),
+      subject: subject(),
+      message: message(),
+    };
+
+    try {
+      const response = await fetch('/api/send-contact', { // Updated URL
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Submission Error:', error);
+      setFormStatus('error');
     }
   };
 
@@ -64,56 +87,56 @@ const Contact = () => {
             <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-6 text-center">
               Ready to Discover Your Ultimate Telecom Link?
             </h2>
-            <form onSubmit={handleSubmit} class="space-y-6">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <input type="text" placeholder="First Name" value={firstName()} onInput={(e) => setFirstName(e.currentTarget.value)}
-                    class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                  <Show when={errors().firstName}><p class="text-red-500 text-sm mt-1">{errors().firstName}</p></Show>
-                </div>
-                <div>
-                  <input type="text" placeholder="Last Name" value={lastName()} onInput={(e) => setLastName(e.currentTarget.value)}
-                    class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                  <Show when={errors().lastName}><p class="text-red-500 text-sm mt-1">{errors().lastName}</p></Show>
-                </div>
-                <div>
-                  <input type="email" placeholder="Email Address" value={email()} onInput={(e) => setEmail(e.currentTarget.value)}
-                    class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                  <Show when={errors().email}><p class="text-red-500 text-sm mt-1">{errors().email}</p></Show>
-                </div>
-                <div>
-                  <input type="tel" placeholder="Telephone" value={phone()} onInput={(e) => setPhone(e.currentTarget.value)}
-                    class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                  <Show when={errors().phone}><p class="text-red-500 text-sm mt-1">{errors().phone}</p></Show>
-                </div>
+            <Show when={formStatus() === 'success'} fallback={
+              <>
+                <form onSubmit={handleSubmit} class="space-y-6">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <input type="text" placeholder="First Name" value={firstName()} onInput={(e) => setFirstName(e.currentTarget.value)}
+                        class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                      <Show when={errors().firstName}><p class="text-red-500 text-sm mt-1">{errors().firstName}</p></Show>
+                    </div>
+                    <div>
+                      <input type="text" placeholder="Last Name" value={lastName()} onInput={(e) => setLastName(e.currentTarget.value)}
+                        class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                      <Show when={errors().lastName}><p class="text-red-500 text-sm mt-1">{errors().lastName}</p></Show>
+                    </div>
+                    <div>
+                      <input type="email" placeholder="Email Address" value={email()} onInput={(e) => setEmail(e.currentTarget.value)}
+                        class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                      <Show when={errors().email}><p class="text-red-500 text-sm mt-1">{errors().email}</p></Show>
+                    </div>
+                    <div>
+                      <input type="tel" placeholder="Telephone" value={phone()} onInput={(e) => setPhone(e.currentTarget.value)}
+                        class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                      <Show when={errors().phone}><p class="text-red-500 text-sm mt-1">{errors().phone}</p></Show>
+                    </div>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Subject" value={subject()} onInput={(e) => setSubject(e.currentTarget.value)}
+                      class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                  </div>
+                  <div>
+                    <textarea placeholder="Message" value={message()} onInput={(e) => setMessage(e.currentTarget.value)}
+                      rows="5" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                    <Show when={errors().message}><p class="text-red-500 text-sm mt-1">{errors().message}</p></Show>
+                  </div>
+                  <div class="pt-4">
+                    <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300 text-lg" disabled={formStatus() === 'submitting'}>
+                      {formStatus() === 'submitting' ? 'Sending...' : 'SEND'}
+                    </button>
+                  </div>
+                </form>
+                <Show when={formStatus() === 'error'}>
+                  <p class="text-red-500 text-center mt-4">Oops! Something went wrong. Please try again.</p>
+                </Show>
+              </>
+            }>
+              <div class="text-center p-8 bg-green-50 rounded-lg">
+                <h3 class="text-2xl font-bold text-green-800">Message Sent!</h3>
+                <p class="text-green-700 mt-2">Thank you for your message. We'll be in touch soon.</p>
               </div>
-              <div>
-                <input type="text" placeholder="Subject" value={subject()} onInput={(e) => setSubject(e.currentTarget.value)}
-                  class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                {/* No error message for subject */}
-              </div>
-              <div>
-                <textarea placeholder="Message" value={message()} onInput={(e) => setMessage(e.currentTarget.value)}
-                  rows="5" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
-                <Show when={errors().message}><p class="text-red-500 text-sm mt-1">{errors().message}</p></Show>
-              </div>
-
-              {/* --- 2. Restyled Checkbox Section --- */}
-              <div class="pt-2">
-                <label for="sms-consent" class="flex items-start gap-4 p-4 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
-                  <input type="checkbox" id="sms-consent" checked={smsConsent()} onChange={(e) => setSmsConsent(e.currentTarget.checked)} class="mt-1 h-4 w-4 shrink-0" />
-                  <span class="text-xs text-slate-500">
-                    By signing up for texts, you consent to receive SMS or MMS messages from Teklink. Consent is not a condition of purchase. Message and data rates may apply. I acknowledge that I have read and agree to the <a href="#" class="text-blue-600 hover:underline">SMS Terms and Conditions</a> which includes our <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
-                  </span>
-                </label>
-              </div>
-
-              <div class="pt-4">
-                <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300 text-lg">
-                  SEND
-                </button>
-              </div>
-            </form>
+            </Show>
           </div>
 
           <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-2xl">

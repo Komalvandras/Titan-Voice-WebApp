@@ -36,14 +36,11 @@ const MainLayout = () => {
     }
   };
 
-  // Add and remove the scroll event listener.
-  // This onMount hook ensures that the code inside it only runs on the client (in the browser),
-  // preventing the "window is not defined" error during server-side rendering.
+
   onMount(() => {
     window.addEventListener('scroll', handleScroll);
 
-    // The onCleanup function is nested here to ensure the event listener is removed
-    // only when the component is unmounted from the client.
+  
     onCleanup(() => {
       window.removeEventListener('scroll', handleScroll);
     });
@@ -54,7 +51,7 @@ const MainLayout = () => {
     e.preventDefault();
     const element = document.querySelector(selector);
     if (element) {
-      const headerOffset = 96; // Height of your sticky header
+      const headerOffset = 96; 
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 

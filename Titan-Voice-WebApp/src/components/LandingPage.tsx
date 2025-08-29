@@ -2,6 +2,7 @@
 import logo from '../assets/logo.png';
 import backgroundVideo from '../assets/titan-2.mp4';
 
+
 const LandingPage = () => {
   return (
     <section class="relative h-screen w-screen flex flex-col justify-center items-center overflow-hidden text-white">
@@ -11,7 +12,7 @@ const LandingPage = () => {
         loop
         muted
         playsinline
-        class="absolute top-0 left-0 w-full h-full object-cover z-0"
+        class="absolute top-0 left-0 w-full h-full object-cover z-0 positioned-fixed"
       >
         {/* The `src` is correctly passed from the import */}
         <source src={backgroundVideo} type="video/mp4" />
@@ -26,11 +27,11 @@ const LandingPage = () => {
         {/* Use the imported logo variable for the src attribute */}
         <img src={logo.src} alt="TitanVoice Logo" class="w-64 md:w-96 mb-8 animate-fade-in-down"/>
 
-        <h1 class="text-4xl md:text-5xl font-light mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <h1 class="text-4xl md:text-5xl font-bold mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
           Welcome to <br /> our new brand
         </h1>
 
-        <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style="animation-delay: 0.6s;">
+        <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style="animation-delay: 0s;">
           {/* Use standard <a> tags for navigation in Astro */}
           <a
             href="/website"
