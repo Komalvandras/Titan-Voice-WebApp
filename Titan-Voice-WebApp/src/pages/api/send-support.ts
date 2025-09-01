@@ -1,4 +1,6 @@
-// src/pages/api/send-support.ts
+// This line ensures the API route runs on the server and can handle POST requests.
+export const prerender = false;
+
 import type { APIRoute } from 'astro';
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
@@ -7,6 +9,8 @@ const mailgun = new Mailgun(formData);
 const mg = mailgun.client({
   username: 'api',
   key: import.meta.env.MAILGUN_API_KEY,
+  // Specifies the EU region for the Mailgun API
+  url: "https://api.mailgun.net"
 });
 
 export const POST: APIRoute = async ({ request }) => {
@@ -21,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
   // This email can be as detailed as you need.
   const adminMessage = {
     from: `Support Ticket <noreply@${import.meta.env.MAILGUN_DOMAIN}>`,
-    to: ['your-email@example.com'], // Your support team's email
+    to: ['vandrasikomalkumar6@gmail.com'], // Your support team's email
     subject: `New Support Ticket [${data.serviceCategory}] from ${data.company}`,
     html: `
       <h3>New Support Ticket Received</h3>
@@ -29,10 +33,10 @@ export const POST: APIRoute = async ({ request }) => {
     `,
   };
 
-  // --- 2. Confirmation Email to the Customer ---
+
   const customerMessage = {
     from: `Titan Voice Support <support@${import.meta.env.MAILGUN_DOMAIN}>`,
-    to: [data.email], // Send to the customer's email address
+    to: [data.email], 
     subject: 'We have received your support request!',
     html: `
       <h3>Support Ticket Received!</h3>
@@ -49,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
   };
 
   try {
-    // Send both emails at the same time
+    
     await Promise.all([
       mg.messages.create(import.meta.env.MAILGUN_DOMAIN, adminMessage),
       mg.messages.create(import.meta.env.MAILGUN_DOMAIN, customerMessage)

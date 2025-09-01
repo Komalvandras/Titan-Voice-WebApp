@@ -1,4 +1,6 @@
-// src/pages/api/send-quote.ts
+// This line ensures the API route runs on the server and can handle POST requests.
+export const prerender = false;
+
 import type { APIRoute } from 'astro';
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
@@ -7,6 +9,8 @@ const mailgun = new Mailgun(formData);
 const mg = mailgun.client({
   username: 'api',
   key: import.meta.env.MAILGUN_API_KEY,
+  // Specifies the EU region for the Mailgun API
+  url: "https://api.mailgun.net"
 });
 
 export const POST: APIRoute = async ({ request }) => {
