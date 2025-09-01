@@ -21,7 +21,7 @@ const Features = () => {
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-blue-800">ADVANCED FEATURES</h2>
-          <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Whether you opt for in-office PBX or Teklink’s groundbreaking cell services, our products boast powerful capabilities perfectly suited to meet your diverse business needs</p>
+          <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Whether you opt for in-office PBX or TitanVoice’s groundbreaking cell services, our products boast powerful capabilities perfectly suited to meet your diverse business needs</p>
     </div>
         <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
           <div class="w-full md:w-1/2">

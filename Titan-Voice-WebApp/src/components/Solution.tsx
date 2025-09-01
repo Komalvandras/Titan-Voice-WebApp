@@ -21,7 +21,7 @@ const Solution = () => {
             <div class="w-full md:w-1/2 md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 z-10 mt-[-4rem] md:mt-0">
               <div class="bg-white p-8 rounded-lg shadow-2xl border-l-8 border-blue-600">
                 <p class="text-gray-700 leading-relaxed text-lg">
-                  For over 20 years, the Teklink platform has delivered the best in business communications to companies operating throughout the United States and beyond. With 24/7 live monitoring, dependable tech support and redundant backup servers across multiple continents, our partners enjoy exceptional mobility, zero down time, and an unbeatable online portal packed with value-added features for every growing business.
+                  For over 20 years, the TitanVoice platform has delivered the best in business communications to companies operating throughout the United States and beyond. With 24/7 live monitoring, dependable tech support and redundant backup servers across multiple continents, our partners enjoy exceptional mobility, zero down time, and an unbeatable online portal packed with value-added features for every growing business.
                 </p>
               </div>
             </div>

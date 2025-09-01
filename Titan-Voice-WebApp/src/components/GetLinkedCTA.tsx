@@ -27,7 +27,7 @@ const GetLinkedCTA = (props:any) => {
           onClick={(e) => props.onNavClick(e, '#contact')}
           class="inline-block bg-white text-blue-800 font-semibold py-3 px-10 border border-white rounded-md hover:bg-transparent hover:text-white transition-colors duration-300"
         >
-          TALK TO TEKLINK
+          TALK TO TITANVOICE
         </a>
       </div>
     </section>
