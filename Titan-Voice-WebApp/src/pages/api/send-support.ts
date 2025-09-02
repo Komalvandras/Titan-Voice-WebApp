@@ -1,4 +1,3 @@
-// This line ensures the API route runs on the server and can handle POST requests.
 export const prerender = false;
 
 import type { APIRoute } from 'astro';
