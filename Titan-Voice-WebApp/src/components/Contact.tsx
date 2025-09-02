@@ -122,7 +122,7 @@ const Contact = () => {
                     <Show when={errors().message}><p class="text-red-500 text-sm mt-1">{errors().message}</p></Show>
                   </div>
                   <div class="pt-4">
-                    <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300 text-lg" disabled={formStatus() === 'submitting'}>
+                    <button type="submit" class="w-full bg-titan-blue text-white font-bold py-4 px-6 rounded-md hover:bg-titan-blue-dark transition-colors duration-300 text-lg" disabled={formStatus() === 'submitting'}>
                       {formStatus() === 'submitting' ? 'Sending...' : 'SEND'}
                     </button>
                   </div>
@@ -145,19 +145,19 @@ const Contact = () => {
             </h3>
             <ul class="space-y-6 text-lg text-slate-700">
               <li class="flex items-center gap-4">
-                <FaSolidPhone size={20} class="text-blue-600" />
-                <span>877-387-6002</span>
+                <FaSolidPhone size={20} class="text-titan-blue" />
+                <span>469.643.4000</span>
               </li>
               <li class="flex items-start gap-4">
-                <FaSolidMarker size={20} class="text-blue-600 mt-1" />
+                <FaSolidMarker size={20} class="text-titan-blue mt-1" />
                 <span>
-                  PO Box No 110002<br />
-                  Brooklyn NY, USA - 11211
+                  450 Century Pkwy Ste 250,<br />
+                  Allen, RX 75013
                 </span>
               </li>
               <li class="flex items-center gap-4">
-                <FaSolidGlobe size={20} class="text-blue-600" />
-                <a href="#" class="hover:underline text-blue-600">
+                <FaSolidGlobe size={20} class="text-titan-blue" />
+                <a href="#" class="hover:underline text-titan-blue">
                   www.yourwebsite.com
                 </a>
               </li>

@@ -28,7 +28,7 @@ const MissionCard = (props:any) => {
         <a 
           href={props.mission.targetHref} 
           onClick={(e) => props.onNavClick(e, props.mission.targetHref)} 
-          class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-md hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
+          class="inline-block bg-titan-blue text-white font-bold py-3 px-8 rounded-md hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
         >
           {props.mission.buttonText}
         </a>
@@ -40,10 +40,10 @@ const MissionCard = (props:any) => {
 
 const Mission  = (props:any) => {
   return (
-    <section id="about" class="py-20 bg-blue-100">
+    <section id="about" class="py-20 bg-titan-blue/20">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-blue-800">OUR MISSION</h2>
+          <h2 class="text-3xl font-bold text-titan-blue">OUR MISSION</h2>
           <p class="text-gray-600 mt-2">Give the telecom world a wake-up call</p>
         </div>
         <div class="max-w-6xl mx-auto">

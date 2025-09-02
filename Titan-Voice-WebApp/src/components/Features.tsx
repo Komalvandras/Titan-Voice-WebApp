@@ -20,7 +20,7 @@ const Features = () => {
     <section id="features" class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-blue-800">ADVANCED FEATURES</h2>
+          <h2 class="text-3xl font-bold text-titan-blue">ADVANCED FEATURES</h2>
           <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Whether you opt for in-office PBX or TitanVoice’s groundbreaking cell services, our products boast powerful capabilities perfectly suited to meet your diverse business needs</p>
     </div>
         <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
@@ -35,7 +35,7 @@ const Features = () => {
             <ul class="space-y-4">
               {featuresList.map(feature => (
                 <li class="flex items-start">
-                  <span class="text-blue-600 mr-3 mt-1">✔</span>
+                  <span class="text-titan-blue mr-3 mt-1">✔</span>
                   <span class="text-gray-700" innerHTML={feature}></span>
                 </li>
               ))}

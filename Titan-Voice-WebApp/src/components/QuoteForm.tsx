@@ -151,7 +151,7 @@ const QuoteForm = () => {
                 </label>
             </div>
 
-            <button type="submit" class="w-full bg-blue-800 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300" disabled={formStatus() === 'submitting'}>
+            <button type="submit" class="w-full bg-titan-blue text-white font-bold py-3 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300" disabled={formStatus() === 'submitting'}>
               {formStatus() === 'submitting' ? 'Sending...' : 'UPGRADE TODAY'}
             </button>
           </form>

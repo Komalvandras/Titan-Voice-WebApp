@@ -26,7 +26,7 @@ const ChainCTA = (props:any) => {
         <a
           href={targetHref}
           onClick={(e) => props.onNavClick(e, targetHref)}
-          class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-md hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
+          class="inline-block bg-titan-blue text-white font-bold py-3 px-8 rounded-md hover:bg-titan-blue-dark transition-transform duration-300 transform hover:scale-105"
         >
           {buttonText}
         </a>

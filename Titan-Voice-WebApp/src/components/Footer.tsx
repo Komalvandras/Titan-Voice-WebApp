@@ -31,7 +31,7 @@ const Footer = (props:any) => {
             href="http://www.shiateichman.com/"
             class="hover:text-gray-400"
           >
-            Design & Developed by STCA
+            Design & Developed by TitanVoice
           </a>
         </div>
       </div>

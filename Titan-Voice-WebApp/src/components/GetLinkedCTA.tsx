@@ -25,7 +25,7 @@ const GetLinkedCTA = (props:any) => {
         <a
           href="#contact"
           onClick={(e) => props.onNavClick(e, '#contact')}
-          class="inline-block bg-white text-blue-800 font-semibold py-3 px-10 border border-white rounded-md hover:bg-transparent hover:text-white transition-colors duration-300"
+          class="inline-block bg-titan-blue text-white font-bold py-3 px-8 rounded-md hover:bg-titan-blue-dark transition-transform duration-300 transform hover:scale-105"
         >
           TALK TO TITANVOICE
         </a>

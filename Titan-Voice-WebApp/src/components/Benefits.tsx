@@ -8,7 +8,7 @@ const Benefits = () => {
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-blue-800">BOUNDLESS BENEFITS</h2>
+          <h2 class="text-3xl font-bold text-titan-blue">BOUNDLESS BENEFITS</h2>
           <p class="text-gray-600 mt-2">Across all industries</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">

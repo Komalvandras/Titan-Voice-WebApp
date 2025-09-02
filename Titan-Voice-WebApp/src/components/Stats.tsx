@@ -10,7 +10,7 @@ const Stats = () => {
           <For each={stats}>{(stat) => (
             <figure class="group relative overflow-hidden rounded-lg shadow-lg">
               <img src={stat.img} alt={stat.label} class="w-full h-48 object-cover"/>
-              <div class="absolute inset-0 bg-blue-900/80 flex flex-col justify-center items-center text-center text-white p-4 ">
+              <div class="absolute inset-0 bg-titan-blue/80 flex flex-col justify-center items-center text-center text-white p-4 ">
                 <h4 class="text-2xl font-bold">{stat.value}</h4>
                 <p class="text-lg font-bold uppercase tracking-wider">{stat.label}</p>
               </div>

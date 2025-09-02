@@ -24,10 +24,11 @@ const Header = (props: Props) => {
   return (
     <header class="bg-gray-100/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div class="container mx-auto px-4 flex justify-between items-center h-24">
-        <a href="#home" onClick={(e) => props.onNavClick(e, '#home')} class="flex items-center gap-3">
-          {/* Corrected to use the imported logo */}
-          <img src={Logo.src} alt="TitanVoice Logo" class="h-24 w-auto"/>
-          <span class="text-2xl font-bold text-slate-700">TitanVoice</span>
+        <a href="#home" onClick={(e) => props.onNavClick(e, '#home')} class="flex items-center gap-2 flex-shrink-0">
+          {/* Adjusted logo size for responsiveness */}
+          <img src={Logo.src} alt="TitanVoice Logo" class="h-20 md:h-24 w-auto"/>
+          {/* Hide text on small screens, adjust size on medium screens to prevent overlap */}
+          <span class="hidden lg:inline text-2xl font-bold text-slate-700">TitanVoice</span>
         </a>
 
         {/* --- Desktop Navigation --- */}
@@ -39,8 +40,8 @@ const Header = (props: Props) => {
                 onClick={(e) => props.onNavClick(e, link.href)} 
                 class="transition-colors duration-300 text-lg"
                 classList={{
-                  'text-blue-600 font-semibold': props.activeSection === link.href.substring(1),
-                  'text-gray-600 hover:text-blue-600': props.activeSection !== link.href.substring(1)
+                  'text-titan-blue font-semibold': props.activeSection === link.href.substring(1),
+                  'text-gray-600 hover:text-titan-blue': props.activeSection !== link.href.substring(1)
                 }}
               >
                 {link.name}
@@ -49,11 +50,11 @@ const Header = (props: Props) => {
           </For>
           <div class="flex items-center gap-4">
             <a href="https://pbx.titanbusinessvoice.com/portal/" target="_blank" rel="noopener noreferrer" 
-               class="bg-blue-800 text-white font-bold px-6 py-2 rounded-full text-lg hover:bg-blue-900">
+               class="bg-titan-blue text-white font-bold px-6 py-2 rounded-full text-lg hover:bg-titan-blue-dark">
               Login
             </a>
-            {/* Replaced <A> with <a> */}
-            <a href="/support" class="bg-blue-800 text-white font-bold px-6 py-2 rounded-full text-lg hover:bg-blue-900">
+            
+            <a href="/support" class="bg-titan-blue text-white font-bold px-6 py-2 rounded-full text-lg hover:bg-titan-blue-dark">
               Support
             </a>
           </div>
@@ -61,7 +62,7 @@ const Header = (props: Props) => {
 
         {/* --- Hamburger Menu Button --- */}
         <div class="lg:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen())} class="p-2 rounded-md text-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen())} class="p-2 rounded-md text-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bg-titan-blue">
             {isMenuOpen() ? (
               <svg xmlns="http://www.w.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             ) : (
@@ -76,17 +77,17 @@ const Header = (props: Props) => {
         <nav class="flex flex-col items-center p-6 space-y-6">
           <For each={navLinks}>
             {(link) => (
-              <a href={link.href} onClick={(e) => handleMobileLinkClick(e, link.href)} class="text-xl text-slate-700 hover:text-blue-600">
+              <a href={link.href} onClick={(e) => handleMobileLinkClick(e, link.href)} class="text-xl text-slate-700 hover:text-titan-blue">
                 {link.name}
               </a>
             )}
           </For>
           {/* Replaced <A> with <a> */}
-          <a href="/support" onClick={handleMobileRouterLinkClick} class="bg-blue-800 text-white font-bold w-full text-center py-3 px-6 rounded-full text-lg">
+          <a href="/support" onClick={handleMobileRouterLinkClick} class="bg-titan-blue text-white font-bold w-full text-center py-3 px-6 rounded-full text-lg ">
             Support
           </a>
           <a href="https://pbx.titanbusinessvoice.com/portal/" target="_blank" rel="noopener noreferrer" 
-             class="bg-blue-800 text-white font-bold w-full text-center py-3 px-6 rounded-full text-lg hover:bg-blue-900">
+             class="bg-titan-blue text-white font-bold w-full text-center py-3 px-6 rounded-full text-lg hover:text-titan-blue-dark">
             Login
           </a>
         </nav>

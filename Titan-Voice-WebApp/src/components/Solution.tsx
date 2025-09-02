@@ -19,7 +19,7 @@ const Solution = () => {
             </div>
             {/* Overlapping Text Box (positioned absolutely relative to the container) */}
             <div class="w-full md:w-1/2 md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 z-10 mt-[-4rem] md:mt-0">
-              <div class="bg-white p-8 rounded-lg shadow-2xl border-l-8 border-blue-600">
+              <div class="bg-white p-8 rounded-lg shadow-2xl border-l-8 border-titan-blue">
                 <p class="text-gray-700 leading-relaxed text-lg">
                   For over 20 years, the TitanVoice platform has delivered the best in business communications to companies operating throughout the United States and beyond. With 24/7 live monitoring, dependable tech support and redundant backup servers across multiple continents, our partners enjoy exceptional mobility, zero down time, and an unbeatable online portal packed with value-added features for every growing business.
                 </p>
@@ -39,7 +39,7 @@ const Solution = () => {
             </div>
              {/* Overlapping Text Box (on the left) */}
             <div class="w-full md:w-1/2 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 z-10 mt-[-4rem] md:mt-0">
-              <div class="bg-white p-8 rounded-lg shadow-2xl border-r-8 border-blue-600">
+              <div class="bg-white p-8 rounded-lg shadow-2xl border-r-8 border-titan-blue">
                 <p class="text-gray-700 leading-relaxed text-lg">
                   Whether you’re looking to unify voice, data and internet, upgrade your virtual PBX system or streamline clients’ online experience, our wide-ranging services keep you seamlessly connected. And since we’re always dialing in the latest cost-saving innovations, you can expect economical rates to match our minimal upfront costs. Link up with a friendly rep to customize your complete telecom package and take advantage of the most reliable, intuitive software in the industry.
                 </p>
