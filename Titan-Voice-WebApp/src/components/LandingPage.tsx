@@ -35,7 +35,7 @@ const LandingPage = () => {
           {/* Use standard <a> tags for navigation in Astro */}
           <a
             href="/website"
-            class="bg-white text-blue-900 font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
+            class="bg-titan-blue text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
           >
             ENTER OUR WEBSITE
           </a>
@@ -43,7 +43,7 @@ const LandingPage = () => {
           {/* Use standard <a> tags for navigation in Astro */}
           <a
             href="/promo"
-            class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105 hover:bg-white/10"
+            class="bg-titan-blue text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
           >
             FREE PHONES PROMO
           </a>

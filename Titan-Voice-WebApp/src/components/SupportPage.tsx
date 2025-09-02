@@ -332,7 +332,7 @@ const SupportPage = () => {
                   </div>
 
                   <div class="pt-4">
-                    <button type="submit" class="w-full bg-blue-800 text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 text-lg" disabled={formStatus() === 'submitting'}>
+                    <button type="submit" class="w-full bg-titan-blue text-white font-bold py-4 px-6 rounded-md hover:bg-blue-900 text-lg" disabled={formStatus() === 'submitting'}>
                       {formStatus() === 'submitting' ? 'Sending...' : 'Send'}
                     </button>
                   </div>
