@@ -28,7 +28,9 @@ const Header = (props: Props) => {
           {/* Adjusted logo size for responsiveness */}
           <img src={Logo.src} alt="TitanVoice Logo" class="h-20 md:h-24 w-auto"/>
           {/* Hide text on small screens, adjust size on medium screens to prevent overlap */}
-          <span class="hidden lg:inline text-2xl font-bold text-slate-700">TitanVoice</span>
+          <span class="hidden lg:inline text-2xl font-bold text-slate-700">
+            Titan<span class="text-titan-blue">Voice</span>
+          </span>
         </a>
 
         {/* --- Desktop Navigation --- */}
