@@ -20,7 +20,7 @@ const LandingPage = () => {
       </video>
 
       {/* Dark Overlay */}
-      <div class="absolute inset-0 bg-black/40 z-10"></div>
+      {/* <div class="absolute inset-0 bg-black/40 z-10"></div> */}
 
       {/* Content */}
       <div class="relative z-20 flex flex-col items-center text-center p-4">
