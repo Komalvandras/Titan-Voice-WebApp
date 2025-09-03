@@ -6,16 +6,16 @@ const Contact = () => {
   const [lastName, setLastName] = createSignal('');
   const [email, setEmail] = createSignal('');
   const [phone, setPhone] = createSignal('');
+  const [Company, setCompany] = createSignal('');
   const [subject, setSubject] = createSignal('');
   const [message, setMessage] = createSignal('');
-  const [smsConsent, setSmsConsent] = createSignal(false);
   const [errors, setErrors] = createSignal({
-    firstName: '', lastName: '', email: '', phone: '', subject: '', message: '',
+    firstName: '', lastName: '', email: '', phone: '',Company: '',  subject: '', message: '',
   });
   const [formStatus, setFormStatus] = createSignal<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const validate = () => {
-    const newErrors = { firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' };
+    const newErrors = { firstName: '', lastName: '', email: '', phone: '', Company: '', subject: '', message: '' };
     let isValid = true;
 
     if (!firstName().trim()) {
@@ -35,6 +35,10 @@ const Contact = () => {
     }
     if (!phone().trim()) {
       newErrors.phone = 'Phone number is required.';
+      isValid = false;
+    }
+    if (!Company().trim()) {
+      newErrors.Company = 'Company name is required.';
       isValid = false;
     }
     if (!message().trim()) {
@@ -57,6 +61,7 @@ const Contact = () => {
       from_name: `${firstName()} ${lastName()}`,
       email: email(),
       phone: phone(),
+      Company: Company(),
       subject: subject(),
       message: message(),
     };
@@ -113,6 +118,10 @@ const Contact = () => {
                     </div>
                   </div>
                   <div>
+                    <input type="text" placeholder="Company" value={Company()} onInput={(e) => setCompany(e.currentTarget.value)}
+                      class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
+                  </div>
+                  <div>
                     <input type="text" placeholder="Subject" value={subject()} onInput={(e) => setSubject(e.currentTarget.value)}
                       class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black placeholder:text-gray-500" />
                   </div>
@@ -158,7 +167,7 @@ const Contact = () => {
               <li class="flex items-center gap-4">
                 <FaSolidGlobe size={20} class="text-titan-blue" />
                 <a href="#" class="hover:underline text-titan-blue">
-                  www.yourwebsite.com
+                  www.titanbusinessvoice.com
                 </a>
               </li>
             </ul>

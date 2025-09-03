@@ -1,6 +1,6 @@
 // src/components/Features.tsx
 
-
+import advancedfeauturesImage from '../assets/titan-4.png';
 
 const Features = () => {
   const featuresList = [
@@ -26,7 +26,7 @@ const Features = () => {
         <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
           <div class="w-full md:w-1/2">
             <img 
-              src="https://oldsite.theteklink.com/wp-content/uploads/2017/10/phone1.png"
+              src={advancedfeauturesImage.src}
               alt="Office Phone"
               class="mx-auto"
             />

@@ -1,3 +1,4 @@
+import contactCenterImage from '../assets/titan-3.jpg';
 export type NavLink = { name: string; href: string };
 export type Stat = { img: string; value: string; label: string };
 export type Service = {
@@ -48,18 +49,18 @@ export const services: Service[] = [
     features: ['High definition voice', 'Crystal clear conferencing', 'Fast, easy setup', '24/7 customer support', '99.99% uptime', 'Superior security'],
   },
   {
-    title: 'SIP Trunking',
+    title: 'Contact Center',
     img: 'https://oldsite.theteklink.com/wp-content/uploads/2017/10/SIP-trunking.jpg',
     icon: 'https://oldsite.theteklink.com/wp-content/uploads/2017/10/s-icon2.jpg',
-    description: 'Modernize your business communications by migrating to the cloud. TitanVoice transforms your equipment via virtual connection, saving you countless dollars while unifying all your voice, data and internet applications.',
-    features: ['Carrier-grade performance', 'Integrated voice and data', 'Fast, easy installation', 'Redundant servers', 'Fraud protection', 'Substantial savings'],
+    description: 'Our Contact Center solution includes voice-only and omnichannel customer experiences, giving contact center agents voice, SMS texting, chat, and email as available true omnichannel contact center.  It allows you to deliver a high-quality inbound and outbound communications experience for your customers and employees.',
+    features: ['Rich Agent Experience', 'Contact History Display', 'Call Transcription and summarization', 'Top detection', 'Sentiment analysis', 'Skills-based routing'],
   },
   {
-    title: 'Fax over IP',
-    img: 'https://oldsite.theteklink.com/wp-content/uploads/2017/10/services1.jpg',
+    title: 'Business SMS',
+    img: contactCenterImage.src,
     icon: 'https://oldsite.theteklink.com/wp-content/uploads/2017/10/s-icon1.png',
-    description: 'Manage communications across multiple locations with conveniently integrated IP faxing, which cuts down on longdistance charges and eliminates the need for traditional fax boards.',
-    features: ['Fast, reliable telecopying', 'Cloud-based convenience', 'Remote capability', 'Advanced management', 'Solid security', 'Tremendous savings'],
+    description: 'The TitanVoice  is the future of marketing and customer service, allowing our clients to reach their audience more effectively and reliably. The TitanVoice solution provies business grade compliant SMS texting and Business MMS with the same back-end ecosystem infrastructure that supports our advanced Message blasts: Reach a large number of users with a single message',
+    features: ['Reliable: Deliver Messages ', 'Reminders: automated reminder messages', 'Drip campaigns: automated time communications', 'Conversation history: See full history of your text threads', 'MMS support: Send and receive MMS messages ', 'Tremendous savings'],
   },
 ];
 

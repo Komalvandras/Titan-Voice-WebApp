@@ -24,7 +24,7 @@ const Services = () => {
   return (
     <section id="services" class="py-24 bg-slate-100 overflow-hidden">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold text-titan-blue mb-2">POPULAR SERVICES</h2>
+        <h2 class="text-3xl font-bold text-titan-blue mb-2">OFFERED SERVICES</h2>
         <p class="max-w-3xl mx-auto mb-16">
           Want to enrich your telecom experience? Browse our comprehensive suite of affordable communications solutions:
         </p>

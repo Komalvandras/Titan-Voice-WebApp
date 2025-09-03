@@ -9,7 +9,7 @@ const QuoteForm = () => {
   const [lastName, setLastName] = createSignal('');
   const [email, setEmail] = createSignal('');
   const [phone, setPhone] = createSignal('');
-  const [smsConsent, setSmsConsent] = createSignal(false);
+  const [Company ,setCompany] = createSignal('');
 
   // State for validation errors (remains the same)
   const [errors, setErrors] = createSignal({
@@ -17,13 +17,14 @@ const QuoteForm = () => {
     lastName: '',
     email: '',
     phone: '',
+    Company: '',
   });
 
   // State to track the form's submission status
   const [formStatus, setFormStatus] = createSignal<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const validate = () => {
-    const newErrors = { firstName: '', lastName: '', email: '', phone: '' };
+    const newErrors = { firstName: '', lastName: '', email: '', phone: '', Company: '' };
     let isValid = true;
 
     if (!firstName().trim()) {
@@ -45,6 +46,10 @@ const QuoteForm = () => {
       newErrors.phone = 'Phone number is required.';
       isValid = false;
     }
+    if (!Company().trim()) {
+      newErrors.Company = 'Company name is required.';
+      isValid = false;
+    }
     
     setErrors(newErrors);
     return isValid;
@@ -63,7 +68,7 @@ const QuoteForm = () => {
       from_name: `${firstName()} ${lastName()}`,
       email: email(),
       phone: phone(),
-      sms_consent: smsConsent() ? 'Yes' : 'No',
+      company: Company(),
     };
 
     try {
@@ -137,21 +142,20 @@ const QuoteForm = () => {
               />
               <Show when={errors().phone}><p class="text-red-500 text-sm mt-1">{errors().phone}</p></Show>
             </div>
-            
-            <div class="flex items-start gap-3">
+            <div >
                 <input 
-                  type="checkbox"
-                  id="sms-consent-quote"
-                  checked={smsConsent()}
-                  onChange={(e) => setSmsConsent(e.currentTarget.checked)}
-                  class="mt-1 h-4 w-4"
+                  type="text"
+                  placeholder="Company Name"
+                  value={Company()}
+                  onInput={(e) => setCompany(e.currentTarget.value)}
+                  class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none placeholder:text-black text-black"
                 />
-                <label for="sms-consent-quote" class="text-xs text-slate-500">
-                  Sign up to receive text messages. By signing up, you consent to receive SMS/MMS messages from us. Message and data rates may apply.
-                </label>
-            </div>
+                <Show when={errors().Company}><p class="text-red-500 text-sm mt-1">{errors().Company}</p></Show>
+              </div>
+            
 
-            <button type="submit" class="w-full bg-titan-blue text-white font-bold py-3 px-6 rounded-md hover:bg-blue-900 transition-colors duration-300" disabled={formStatus() === 'submitting'}>
+
+            <button type="submit" class="w-full bg-titan-blue text-white font-bold py-3 px-6 rounded-md hover:bg-titan-blue-dark transition-colors duration-300" disabled={formStatus() === 'submitting'}>
               {formStatus() === 'submitting' ? 'Sending...' : 'UPGRADE TODAY'}
             </button>
           </form>

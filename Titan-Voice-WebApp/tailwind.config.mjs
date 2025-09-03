@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'titan-blue': '#6a9aaa',
-        'titan-blue-dark': '#588d9e', // A slightly darker shade for hover effects
+        'titan-blue': '#00BFFF',
+        'titan-blue-dark': '#588d9e', 
       }
     },
   },
