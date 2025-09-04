@@ -45,7 +45,7 @@ const LandingPage = () => {
             href="/promo"
             class="bg-titan-blue text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
           >
-            FREE PHONES PROMO
+            CURRENT PROMOTIONS
           </a>
         </div>
       </div>

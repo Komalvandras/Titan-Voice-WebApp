@@ -21,8 +21,7 @@ const Solution = () => {
             <div class="w-full md:w-1/2 md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 z-10 mt-[-4rem] md:mt-0">
               <div class="bg-white p-8 rounded-lg shadow-2xl border-l-8 border-titan-blue">
                 <p class="text-gray-700 leading-relaxed text-lg">
-                  Our TitanVoice ecosystem delivers next-generation Al powered voice services, premium technical support, and a powerful unified communications platform your business requires to compete.  With 24/7 live monitoring, dependable tech support and redundant backup servers across multiple continents, our partners enjoy exceptional mobility, zero down time for every growing business.
-                </p>
+                  “Our powerful TitanVoice unified communications ecosystem delivers next-generation Al powered voice, compliant SMS/MMS, premium technical support, and a powerful unified communications platform your business requires to compete. With 24/7 live monitoring, dependable tech support and redundant backup servers across multiple continents, our partners enjoy exceptional mobility, zero down time for every growing business.”</p>
               </div>
             </div>
           </div>

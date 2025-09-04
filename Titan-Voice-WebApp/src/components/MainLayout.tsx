@@ -69,9 +69,10 @@ const MainLayout = () => {
       <main>
         {/* Add 'id' attributes to your main sections for scroll spying */}
         <div id="home"><IntroSection onNavClick={handleNavClick} /></div>
-        <Stats />
+        <ChainCTA/>
         <div id="why-teklink"><Solution /></div>
-        <ChainCTA onNavClick={handleNavClick} />
+        <Stats />
+        
         <div id="services"><Services /></div>
         <div id="features"><Features /></div>
         <GetLinkedCTA onNavClick={handleNavClick} />

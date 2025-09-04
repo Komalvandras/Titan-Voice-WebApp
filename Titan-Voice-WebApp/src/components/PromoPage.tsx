@@ -14,6 +14,7 @@ const PromoPage = () => {
   const [state, setState] = createSignal('');
   const [zipCode, setZipCode] = createSignal('');
   const [numUsers, setNumUsers] = createSignal('');
+  const [promoCode, setpromoCode] = createSignal('');
   const [currentProvider, setCurrentProvider] = createSignal('');
   const [notes, setNotes] = createSignal('');
 
@@ -28,13 +29,14 @@ const PromoPage = () => {
     state: '',
     zipCode: '',
     numUsers: '',
+    promoCode: '',
   });
 
   // Comprehensive validation function for all required fields
   const validate = () => {
     const newErrors = {
         firstName: '', lastName: '', email: '', phone: '',
-        streetAddress: '', city: '', state: '', zipCode: '', numUsers: ''
+        streetAddress: '', city: '', state: '', zipCode: '', numUsers: '', promoCode: ''
     };
     let isValid = true;
 
@@ -122,8 +124,12 @@ const PromoPage = () => {
           {/* Service Details */}
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <input type="number" placeholder="Number of Users*" value={numUsers()} onInput={(e) => setNumUsers(e.currentTarget.value)} min="1" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500" />
+              <input type="number" placeholder="Minimum Number of Users*" value={numUsers()} onInput={(e) => setNumUsers(e.currentTarget.value)} min="1" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500" />
               <Show when={errors().numUsers}><p class="text-red-500 text-sm mt-1">{errors().numUsers}</p></Show>
+            </div>
+            <div>
+                <input type="text" placeholder="Promo Code" value={zipCode()} onInput={(e) => setpromoCode(e.currentTarget.value)} class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500" />
+                <Show when={errors().promoCode}><p class="text-red-500 text-sm mt-1">{errors().promoCode}</p></Show>
             </div>
             <input type="text" placeholder="Current Service Provider" value={currentProvider()} onInput={(e) => setCurrentProvider(e.currentTarget.value)} class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500" />
           </div>

@@ -2,8 +2,6 @@
 
 import { createSignal, For } from 'solid-js';
 import { navLinks } from '../data/appData';
-import Logo from '../assets/logo.png'; // Make sure this path is correct
-
 type Props = {
   onNavClick: (e: MouseEvent, selector: string) => void;
   activeSection: string;
@@ -26,9 +24,9 @@ const Header = (props: Props) => {
       <div class="container mx-auto px-4 flex justify-between items-center h-24">
         <a href="#home" onClick={(e) => props.onNavClick(e, '#home')} class="flex items-center gap-2 flex-shrink-0">
           {/* Adjusted logo size for responsiveness */}
-          <img src={Logo.src} alt="TitanVoice Logo" class="h-20 md:h-24 w-auto"/>
+          
           {/* Hide text on small screens, adjust size on medium screens to prevent overlap */}
-          <span class="hidden lg:inline text-2xl font-bold text-slate-700">
+          <span class="hidden lg:inline text-4xl font-bold text-slate-700">
             Titan<span class="text-titan-blue">Voice</span>
           </span>
         </a>
