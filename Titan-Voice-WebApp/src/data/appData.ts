@@ -96,7 +96,7 @@ export const missions: Mission[] = [
   },
   {
     img: 'https://oldsite.theteklink.com/wp-content/uploads/support.png',
-    title: 'Concierge Support Team',
+    title: 'Concierge-Level Support Team',
     description: 'Our customer care team is here for you—always ready to listen, understand, and connect in ways others can’t. We build genuine, one-on-one relationships that make working together seamless',
     buttonText: 'CHAT NOW',
     targetHref: '#contact',
