@@ -1,3 +1,5 @@
+// src/components/LandingPage.tsx
+
 // Asset imports: Astro will process these paths during the build
 import logo from '../assets/logo.png';
 import backgroundVideo from '../assets/titan-2.mp4';
@@ -12,19 +14,14 @@ const LandingPage = () => {
         loop
         muted
         playsinline
-        class="absolute top-0 left-0 w-full h-full object-cover z-0 positioned-fixed"
+        class="absolute top-0 left-0 w-full h-full object-cover z-0"
       >
-        {/* The `src` is correctly passed from the import */}
         <source src={backgroundVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      {/* Dark Overlay */}
-      {/* <div class="absolute inset-0 bg-black/40 z-10"></div> */}
-
       {/* Content */}
       <div class="relative z-20 flex flex-col items-center text-center p-4">
-        {/* Use the imported logo variable for the src attribute */}
         <img src={logo.src} alt="TitanVoice Logo" class="w-64 md:w-96 mb-8 animate-fade-in-down"/>
 
         <h1 class="text-4xl md:text-5xl font-bold mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
@@ -32,18 +29,19 @@ const LandingPage = () => {
         </h1>
 
         <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style="animation-delay: 0s;">
-          {/* Use standard <a> tags for navigation in Astro */}
+          {/* --- UPDATED BUTTON --- */}
           <a
             href="/website"
-            class="bg-titan-blue text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
+            // Increased padding and text size by another ~25% for mobile
+            class="bg-titan-blue text-white font-bold py-8 px-16 text-4xl sm:py-5 sm:px-12 sm:text-2xl rounded-full transition-transform duration-300 transform hover:scale-105"
           >
             ENTER OUR WEBSITE
           </a>
 
-          {/* Use standard <a> tags for navigation in Astro */}
+          {/* --- UPDATED BUTTON --- */}
           <a
             href="/promo"
-            class="bg-titan-blue text-white font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 transform hover:scale-105"
+            class="bg-titan-blue text-white font-bold py-8 px-16 text-4xl sm:py-5 sm:px-12 sm:text-2xl rounded-full transition-transform duration-300 transform hover:scale-105"
           >
             CURRENT PROMOTIONS
           </a>
